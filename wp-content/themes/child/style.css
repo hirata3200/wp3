@@ -1,0 +1,15 @@
+/* 
+Theme Name: Simple Simple Child Theme
+Description: 子テーマの説明
+Author: 製作者
+Author URI: 製作者のURL
+Version: 1.0など
+Template: simplesimple
+ */
+
+ @import url('../simplesimple/style.css');
+
+ a {
+     color: #18b4c1;
+     border-color: #18b4c1;
+ }
