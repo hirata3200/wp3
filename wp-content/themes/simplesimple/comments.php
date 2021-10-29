@@ -5,16 +5,16 @@
 <div id="comment-area">
 	<?php if ( have_comments() ): /** コメントがあったら */ ?>
 		<h3 id="comments">Comment</h3>
-		<?php
+		<?php 
 		$args = array(
-			'type'		=> 'comment',
-			'callback'	=> 'my_comment_list',
+			'type'		=> 'comment',			
+			'callback'	=> 'my_comment_list',	
 
-); ?>
+		); ?>
 		<ol class="comments-list" id="custom-comments">
 			<?php wp_list_comments( $args ); ?>
 		</ol>
-		<?php
+		<?php 
 		if ( $wp_query->max_num_comment_pages > 1 ) : ?>
 			<div class="comment-page-link">
 				<?php $args = array(
@@ -25,7 +25,7 @@
 			</div>
 		<?php endif;
 
-
+		
 		$str  = '<h3 id="trackbacks">Trackback</h3>';
 		$str .= '<ol class="trackback-list" id="custom-trackback">';
 		$i = 0;
@@ -59,10 +59,18 @@
 		$str .= '</ol>';
 		if ( $i > 0 ) {
 			echo $str;
-		}
-
-	endif;
-			 ?>
-			 <?php comment_form(); ?>
+		}	
+	endif; 
+	if (comments_open()):
+		comment_form();
+	else: ?>
+		<p>現在コメントは受け付けておりません。</p>
+	<?php endif;
+	if ( pings_open() ) : ?>
+		<h3 id="trackback-url">Trackback URL</h3>
+		<p><input id="trackback_url" readonly="readonly" value=" <?php trackback_url(true); ?>" type="text" onclick = "this.select();" /></p>
+	<?php else : ?>
+		<p>現在トラックバックは受け付けておりません。</p>
+	<?php endif; ?>
 </div>
 <!-- /comments.php -->

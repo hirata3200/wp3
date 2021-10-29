@@ -1,55 +1,34 @@
 <?php
-/****************************************
-
-	sidebar.php
-
-	サイドバーを表示するための
-	テンプレートファイルです。
-
-	sidebar.php のコードに関しては、
-	CHAPTER 11 で詳しく解説しています。
-
-*****************************************/
+//書き写し
 ?>
 <!-- sidebar.php -->
 <!-- sidebar -->
 <div id="sidebar">
-<?php wp_nav_menu( array( 'theme_location' => 'sidebar-navi'));
-?>
-<?php if ( is_active_sidebar( 'sidebar-1' ) ) : /** ウィジットがあったら表示 */
-	dynamic_sidebar( 'sidebar-1' );
-else : /** ウィジットがなかったら下記を表示 */ ?>
 	<div class="widget">
-		<h2>Categories</h2>
-		<ul>
-			<?php wp_list_categories( 'title_li=' ); ?>
+		<h2>Recent Posts</h2>
+		<?php $args = array( 'posts_per_page' => 3, );
+		$my_query = new WP_Query( $args );
+		if ( $my_query->have_posts() ) :  ?>
+			<ul id="sidebar-recent-posts" class="sidebar-posts">
+			<?php while ( $my_query->have_posts() ) : $my_query->the_post(); ?>
+				<li class="clearfix">
+					<div class="sidebar-recent-posts-title">
+						<h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
+						<p class="sidebar-date"><?php  the_time( get_option( 'date_format' ) ); ?></p>
+						<p class="sidebar-comment-num"><?php comments_popup_link( 'Comment : 0', 'Comment : 1', 'Comments : %' ); ?></p>
+
+					</div>
+					<p class="sidebar-thumbnail-box">
+						<a href="<?php the_permalink(); ?>">ここから</a>
+					</p>
+			</li>
 		</ul>
 	</div>
-	<div class="widget">
-		<h2>Recent posts</h2>
-		<ul>
-			<?php $args = array(
-				'type'	=> 'postbypost',
-				'limit'	=> 5,
-			);
-			wp_get_archives( $args ); ?>
-		</ul>
-	</div>
-	<div class="widget">
-		<h2>Archive</h2>
-		<ul>
-		<?php wp_get_archives(); ?>
-		</ul>
-	</div>
-	<div class="widget">
-	    <h2>Meta</h2>
-		<ul>
-			<?php wp_register(); ?>
-			<li><?php wp_loginout(); ?></li>
-			<?php wp_meta(); ?>
-		</ul>
-	</div>
-<?php endif; ?>
+
+	if ( is_active_sidebar( 'sidebar-1' )) :
+		dynamic_sidebar('sidebar-1');
+	endif;
+	?>
 </div>
 <!-- /sidebar -->
 <!-- /sidebar.php -->
