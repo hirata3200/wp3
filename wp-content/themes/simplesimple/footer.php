@@ -16,9 +16,6 @@
 <!-- footer -->
 <div id="footer">
 		<p id="copyright" class="wrapper">&copy; <?php bloginfo( 'name' ); ?> All Rights Reserved.</p>
-		<?php wp_nav_menu( array( 'theme_location' => 'sidebar-navi'));
-?>
-
 </div>
 <?php wp_footer(); ?>
 </body>
